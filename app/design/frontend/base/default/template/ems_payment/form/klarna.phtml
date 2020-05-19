@@ -1,0 +1,53 @@
+<?php
+/**
+ *   ╲          ╱
+ * ╭──────────────╮  COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
+ * │╭──╮      ╭──╮│
+ * ││//│      │//││
+ * │╰──╯      ╰──╯│
+ * ╰──────────────╯
+ *   ╭──────────╮    The MIT License (MIT)
+ *   │ () () () │
+ *
+ * @category    EMS
+ * @package     EMS_Payment
+ * @author      Ginger Payments B.V. (info@gingerpayments.com)
+ * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V. (https://www.gingerpayments.com)
+ * @license     The MIT License (MIT)
+ */
+?>
+
+<?php
+$_code = $this->getMethodCode();
+$_customer = Mage::getSingleton('customer/session')->getCustomer();
+
+$_gender = $this->getLayout()
+    ->createBlock('customer/widget_gender')
+    ->setFieldNameFormat('klarna_gender')
+    ->setFieldIdFormat('klarna_gender')
+    ->setGender($_customer->getGender());
+
+$_dob = $this->getLayout()
+    ->createBlock('customer/widget_dob')
+    ->setFieldNameFormat('klarna_dob')
+    ->setFieldIdFormat('klarna_dob')
+    ->setDate($_customer->getDob());
+
+?>
+
+<ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
+    <?php if (!$_dob->isRequired()): ?>
+        <li>
+            <div class="input-box">
+                <?php echo $_dob->toHtml(); ?>
+            </div>
+        </li>
+    <?php endif; ?>
+    <?php if (!$_gender->isRequired()): ?>
+        <li>
+            <div class="input-box">
+                <?php echo $_gender->toHtml(); ?>
+            </div>
+        </li>
+    <?php endif; ?>
+</ul>

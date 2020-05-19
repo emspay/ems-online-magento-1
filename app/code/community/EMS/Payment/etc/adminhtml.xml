@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+  ~   ╲          ╱
+  ~ ╭──────────────╮  COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
+  ~ │╭──╮      ╭──╮│
+  ~ ││//│      │//││
+  ~ │╰──╯      ╰──╯│
+  ~ ╰──────────────╯
+  ~   ╭──────────╮    The MIT License (MIT)
+  ~   │ () () () │
+  ~
+  ~ @category    EMS
+  ~ @package     EMS_Payment
+  ~ @author      Ginger Payments B.V. (info@gingerpayments.com)
+  ~ @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V. (https://www.gingerpayments.com)
+  ~ @license     The MIT License (MIT)
+  -->
+<config>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <ems_payment>
+                                        <title>EMS Payment - Payment Methods</title>
+                                    </ems_payment>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

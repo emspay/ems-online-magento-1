@@ -1,0 +1,33 @@
+<?php
+/**
+ *   ╲          ╱
+ * ╭──────────────╮  COPYRIGHT (C) 2019 GINGER PAYMENTS B.V.
+ * │╭──╮      ╭──╮│
+ * ││//│      │//││
+ * │╰──╯      ╰──╯│
+ * ╰──────────────╯
+ *   ╭──────────╮    The MIT License (MIT)
+ *   │ () () () │
+ *
+ * @category    EMS
+ * @package     EMS_Payment
+ * @author      Ginger Payments B.V. (info@gingerpayments.com)
+ * @copyright   COPYRIGHT (C) 2019 GINGER PAYMENTS B.V. (https://www.gingerpayments.com)
+ * @license     The MIT License (MIT)
+ */
+?>
+<div class="page-title">
+    <?php if ($this->getRealOrderId()) {
+    ?>
+        <h1><?php echo sprintf($this->__('Your order %s at %s'), $this->getRealOrderId(), Mage::app()->getStore()->getName())  ?></h1>
+    <?php
+} else {
+        ?>
+        <h1><?php echo sprintf($this->__('Your order at %s'), Mage::app()->getStore()->getName())  ?></h1>
+    <?php
+    } ?>
+</div>
+<h2 class="sub-title"><?php echo $this->__('An error occurred in the process of payment') ?></h2>
+<?php if ($this->getRealOrderId()) : ?><p><?php echo $this->__('Order #') . $this->getRealOrderId() ?></p><?php endif ?>
+<?php if ($error = $this->getErrorMessage()) : ?><p><?php echo $error ?></p><?php endif ?>
+<p><?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl())) ?></p>

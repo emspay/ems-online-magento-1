@@ -1,0 +1,97 @@
+<?php
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $this Mage_Checkout_Block_Onepage_Success */ ?>
+<div class="page-title">
+    <h1>
+        <?php echo sprintf($this->__('Your order %s at %s'), $this->getOrderId(), Mage::app()->getStore()->getName()) ?>
+    </h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<h2 class="sub-title">
+    <?php echo $this->__('Your order has been received.') ?>
+</h2>
+<h3>
+    <?php echo $this->__('Thank you for your purchase!') ?>
+</h3>
+
+<?php if (Mage::app()->getRequest()->getParam('reference') == 'banktransfer'): ?>
+    <?php
+    /** @var $order Mage_Sales_Model_Order */
+    $order = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId());
+    ?>
+    <b>
+        <?php echo $this->__('Payment instructions:') ?>
+    </b>
+    <br/>
+    <?php echo $this->__('Please use the following data to make the banktransfer') ?><br/>
+    <?php echo nl2br(Mage::getModel('ems_payment/banktransfer')->getSuccessHtml($order)) ?>
+    <br/>
+    <?php echo $this->__('EMS processes the payments for'); ?> <?php echo Mage::app()->getGroup()->getName() ?><br/>
+    <br/>
+    <?php echo $this->__("(!) Don't forget to use the reference in your payment. Without the reference the processing of your payment can take more time!"); ?>
+    </p>
+<?php endif ?>
+
+<?php if ($this->getOrderId()): ?>
+    <?php if ($this->getCanViewOrder()): ?>
+        <p>
+            <?php echo $this->__('Your order # is: %s.',
+                sprintf('<a href="%s">%s</a>',
+                    $this->escapeHtml($this->getViewOrderUrl()),
+                    $this->escapeHtml($this->getOrderId()))
+            ) ?>
+        </p>
+    <?php else: ?>
+        <p>
+            <?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?>
+        </p>
+    <?php endif ?>
+    <p>
+        <?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?>
+    </p>
+    <?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) : ?>
+        <p>
+            <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+            <?php echo $this->getChildHtml() ?>
+        </p>
+    <?php endif ?>
+<?php endif ?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p>
+        <?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId()))) ?>
+    </p>
+<?php endif ?>
+
+<?php if ($profiles = $this->getRecurringProfiles()): ?>
+    <p>
+        <?php echo $this->__('Your recurring payment profiles:') ?><
+        /p>
+    <ul class="disc">
+        <?php foreach ($profiles as $profile): ?>
+            <?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>',
+                $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile,
+                    'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) ?>
+            <li>
+                <?php echo $this->__('Payment profile # %s: "%s".',
+                    $profileIdHtml,
+                    $this->escapeHtml($this->getObjectData($profile, 'schedule_description'))
+                ) ?>
+            </li>
+        <?php endforeach ?>
+    </ul>
+<?php endif ?>
+
+<div class="buttons-set">
+    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'">
+        <span>
+            <span>
+                <?php echo $this->__('Continue Shopping') ?>
+            </span>
+        </span>
+    </button>
+</div>

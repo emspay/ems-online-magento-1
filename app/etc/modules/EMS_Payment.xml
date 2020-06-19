@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © Magmodules.eu. All rights reserved.
+  ~ See COPYING.txt for license details.
+  -->
+<config>
+    <modules>
+        <EMS_Payment>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Payment />
+                <Mage_Checkout />
+            </depends>
+        </EMS_Payment>
+    </modules>
+    <global>
+        <models>
+            <ems_payment>
+                <class>EMS_PSP_Model</class>
+            </ems_payment>
+        </models>
+    </global>
+</config>

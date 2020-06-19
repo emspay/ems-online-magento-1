@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+    <li>
+        <label for="<?php echo $this->getMethodCode() ?>_issuer_id" class="required">
+            <em>*</em><?php echo $this->__('Choose your bank:') ?>
+        </label>
+        <span class="input-box">
+            <select name="issuer_id"
+                    class="required-entry input-text"
+                    id="<?php echo $this->getMethodCode(); ?>_issuer_id"
+                    title="<?php echo $this->getMethodCode() ?>_issuer_id">
+                <?php foreach ($this->getMethod()->getIssuers() as $issuer): ?>
+                    <?php if (isset($issuer['id']) && isset($issuer['id'])): ?>
+                        <option value="<?php echo $issuer['id'] ?>"><?php echo $issuer['name'] ?></option>
+                    <?php endif ?>
+                <?php endforeach ?>
+            </select>
+        </span>
+    </li>
+</ul>

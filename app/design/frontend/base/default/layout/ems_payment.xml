@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © Magmodules.eu. All rights reserved.
+  ~ See COPYING.txt for license details.
+  -->
+<layout version="0.1.0">
+    <checkout_onepage_success translate="label">
+        <reference name="checkout.success">
+            <action method="setTemplate"><template>ems_payment/success.phtml</template></action>
+        </reference>
+    </checkout_onepage_success>
+    <checkout_onepage_failure translate="label">
+        <reference name="checkout.failure">>
+            <action method="setTemplate"><template>ems_payment/failure.phtml</template></action>
+        </reference>
+    </checkout_onepage_failure>
+</layout>

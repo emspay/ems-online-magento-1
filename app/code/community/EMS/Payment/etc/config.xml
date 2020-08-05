@@ -6,7 +6,7 @@
 <config>
     <modules>
         <EMS_Payment>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </EMS_Payment>
     </modules>
     <global>

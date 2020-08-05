@@ -101,7 +101,9 @@ class EMS_Payment_Model_Observer
                 'captureOrder',
                 'Failed to capture EMS Payment order: ' . $exception->getMessage()
             );
-            Mage::getSingleton('core/session')->addError($exception->getMessage());
+
+            $msg = $this->_helper->__('Unable to capture payment for this order, full detail: var/log/ems-payment.log');
+            Mage::getSingleton('core/session')->addError($msg);
         }
 
         return $this;

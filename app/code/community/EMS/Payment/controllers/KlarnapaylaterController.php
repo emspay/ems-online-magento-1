@@ -33,7 +33,7 @@ class EMS_Payment_KlarnapaylaterController extends EMS_Payment_Controller_Action
     {
         try {
             $this->_method->createOrder();
-            $this->_redirect('checkout/onepage/success', array('_secure' => true));
+            $this->_redirectUrl($this->_method->getPaymentUrl());
         } catch (Mage_Core_Exception $exception) {
             $this->_restoreCart();
             $this->_helper->log('paymentAction', $exception->getMessage(), 3);

@@ -30,7 +30,6 @@ class EMS_Payment_Model_Klarnapaylater extends EMS_Payment_Model_Abstract
     protected $_controller = 'klarnapaylater';
     protected $_includeOrderLines = true;
     protected $_includeCustomerData = true;
-    protected $_shouldRedirect = false;
     protected $_canRefundInvoicePartial = false;
 
     /**

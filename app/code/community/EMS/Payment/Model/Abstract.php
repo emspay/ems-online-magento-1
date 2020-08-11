@@ -661,7 +661,7 @@ abstract class EMS_Payment_Model_Abstract extends Mage_Payment_Model_Method_Abst
         $transactionId = $order->getEmsPaymentOrderId();
 
         try {
-            $this->_emsLib->refundOrder(
+            $emsOrder = $this->_emsLib->refundOrder(
                 $transactionId,
                 array(
                     'amount'   => $this->_helper->getAmountInCents((float)$amount),
@@ -669,8 +669,23 @@ abstract class EMS_Payment_Model_Abstract extends Mage_Payment_Model_Method_Abst
                 )
             );
         } catch (\Exception $e) {
-            $this->_helper->log('Refund', $e->getMessage(), 3);
             $exceptionMsg = $this->_helper->__('Error: not possible to create an online refund: %s', $e->getMessage());
+            $this->_helper->log('Refund', $exceptionMsg, 3);
+            Mage::throwException($exceptionMsg);
+        }
+
+        if (in_array($emsOrder['status'], array('error', 'cancelled', 'expired'))) {
+            if (isset(current($emsOrder['transactions'])['reason'])) {
+                $exceptionMsg = $this->_helper->__(
+                    'Error: not possible to create an online refund: %s',
+                    current($emsOrder['transactions'])['reason']
+                );
+            } else {
+                $exceptionMsg = $this->_helper->__(
+                    'Error: not possible to create an online refund: Refund order is not completed'
+                );
+            }
+            $this->_helper->log('Refund', $exceptionMsg, 3);
             Mage::throwException($exceptionMsg);
         }
 
